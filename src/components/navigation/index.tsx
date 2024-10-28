@@ -65,7 +65,7 @@ export default function Navigation() {
       ],
       [
         ".container",
-        { backgroundColor: "rgb(255,255,255,0.5)" },
+        { backgroundColor: "rgb(250,250,250,1)" },
         { duration: 0.5, ease: [0.76, 0, 0.24, 1], at: "<" },
       ],
       [
@@ -86,7 +86,10 @@ export default function Navigation() {
     );
     await animate(
       ".container",
-      { "--shadow-opacity": 1 },
+      {
+        boxShadow: "rgba(0, 0, 0, 0.08) 0px 2px 8px 0px",
+        border: "1px solid rgba(0, 0, 0, 0.05)",
+      },
       { duration: 1, ease: [0.76, 0, 0.24, 1] },
     );
   };
@@ -103,13 +106,19 @@ export default function Navigation() {
       }}
     >
       <motion.div
-        className="container relative mt-4 flex w-fit items-stretch justify-center rounded-2xl p-1"
+        className={`container relative mt-4 flex w-fit items-stretch justify-center rounded-2xl p-1`}
         initial={{
+          boxShadow:
+            visitStatus === "new"
+              ? "none"
+              : "rgba(0, 0, 0, 0.08) 0px 2px 8px 0px",
+          border:
+            visitStatus === "new" ? "none" : "1px solid rgba(0, 0, 0, 0.05)",
           opacity: visitStatus === "new" ? 0 : 1,
           backgroundColor:
             visitStatus === "new"
               ? "rgb(255,255,255,0)"
-              : "rgb(248,248,248,0.75)",
+              : "rgb(250,250,250 ,1)",
         }}
       >
         {tabs.map((tab) =>
@@ -159,7 +168,7 @@ export default function Navigation() {
           ) : null,
         )}
         <motion.div
-          className="items flex"
+          className="items relative flex"
           initial={{
             opacity: visitStatus === "new" ? 0 : 1,
             width: visitStatus === "new" ? 0 : "auto",
@@ -190,11 +199,18 @@ export default function Navigation() {
 const Pill = ({ isFirstVisit }: { isFirstVisit: boolean }) => {
   return (
     <motion.span
+      layout
+      // layoutRoot
       layoutId="pill"
       className="pill absolute inset-0 z-0 bg-white"
-      style={{ borderRadius: "12px" }}
+      style={{ borderRadius: "12px", originY: "top" }}
       initial={{ opacity: isFirstVisit ? 0 : 1 }}
-      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+      transition={{
+        type: "spring",
+        bounce: 0.2,
+        duration: 0.4,
+        ease: "easeOut",
+      }}
     />
   );
 };
