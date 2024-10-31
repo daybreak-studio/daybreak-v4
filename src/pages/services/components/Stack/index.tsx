@@ -1,5 +1,5 @@
-import { motion, useMotionValueEvent, useTransform } from "framer-motion";
-import React, { useMemo, useState } from "react";
+import { motion, useTransform } from "framer-motion";
+import React, { useMemo } from "react";
 import { useWindowSize } from "usehooks-ts";
 import { useItemTransition } from "./ItemTransition";
 
@@ -67,24 +67,36 @@ const Stack = ({ children, index, className }: Props) => {
       return initialRotation;
     },
   );
+  const dropShadow = useTransform(
+    transitionProgress,
+    [-1, 0, 1],
+    [
+      "0px 0px 0px rgba(0, 0, 0, 0)",
+      "0px 40px 60px rgba(0, 0, 0, 0.07)",
+      "0px 40px 60px rgba(0, 0, 0, 0.07)",
+    ],
+    {
+      clamp: false,
+    },
+  );
 
   return (
     <div
-      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform"
-      style={{
-        zIndex: 100 - index,
-      }}
+      style={{ zIndex: 100 - index }}
+      // className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform px-8"
+      className="relative h-0 w-full translate-y-[10vh] transform px-8"
     >
       <motion.div
-        className={`rounded-[32px] border bg-white p-4 drop-shadow-lg`}
+        className={`mx-auto w-fit rounded-[32px] border bg-white`}
         style={{
           y: yWithToggleState,
           scale: scaleWithToggleState,
           rotate: rotateWithToggleState,
+          boxShadow: dropShadow,
           transition: "transform .25s cubic-bezier(0.16, 1, 0.3, 1)",
         }}
       >
-        <motion.div style={{ opacity }} className={className}>
+        <motion.div style={{ opacity }} className={`${className}`}>
           {children}
         </motion.div>
       </motion.div>

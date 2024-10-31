@@ -27,7 +27,9 @@ const StackGroupVetical = ({ children }: Props) => {
             height: `${(itemsCount + 1) * 100}vh`,
           }}
         >
-          <div className="sticky top-0 h-screen">{children}</div>
+          <div className="sticky left-0 right-0 top-0 block h-screen w-full">
+            {children}
+          </div>
         </div>
       </ItemTransitionGroup>
       {/* padding at the end */}
