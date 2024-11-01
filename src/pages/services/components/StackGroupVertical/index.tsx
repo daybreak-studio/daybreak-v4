@@ -1,6 +1,6 @@
 import { useScroll } from "framer-motion";
 import React, { Children, RefObject, useRef } from "react";
-import { ItemTransitionGroup } from "../Stack/ItemTransition";
+import ItemTransitionGroup from "../Stack/ItemTransition";
 
 type Props = {
   children: React.ReactNode;

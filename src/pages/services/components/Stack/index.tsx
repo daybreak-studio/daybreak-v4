@@ -49,10 +49,7 @@ const Stack = ({ children, index, className }: Props) => {
     () => (Math.random() + 0.5) * (Math.random() >= 0.5 ? -1 : 1),
     [],
   );
-  const initialRotation = useMemo(
-    () => Math.random() * 10 - 10 / 2,
-    [rotationDeviation],
-  );
+  const initialRotation = useMemo(() => Math.random() * 10 - 10 / 2, []);
   const rotate = useTransform(
     transitionProgress,
     [-1, 0],
