@@ -13,6 +13,7 @@ import { fileBuilder, urlFor } from "@/sanity/lib/builder";
 import { useState } from "react";
 import { LayoutGroup, LayoutGroupContext, motion } from "framer-motion";
 import React from "react";
+import StackGroupHorizontal from "./components/StackGroupHorizontal";
 
 // Unified function to get media URL
 const getMediaUrl = (mediaAsset: any) => {
@@ -64,6 +65,18 @@ export default function Services({ data }: { data: Services }) {
         })}
       </StackGroupVertical>
       <div className="h-[100vh] bg-blue-200"></div>
+      <StackGroupHorizontal>
+        {Object.entries(data.serviceCategories!).map((category, index) => {
+          return (
+            <ServiceCardContent
+              index={index}
+              key={index}
+              categoryName={category[0]}
+              tabs={category[1].tabs!}
+            />
+          );
+        })}
+      </StackGroupHorizontal>
     </div>
   );
 }
