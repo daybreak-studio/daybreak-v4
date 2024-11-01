@@ -51,7 +51,7 @@ type ItemContextProps = {
   itemsCount: number;
   progress: MotionValue;
 };
-export function ItemTransitionGroup({
+export default function ItemTransitionGroup({
   children,
   progress,
   itemsCount,
