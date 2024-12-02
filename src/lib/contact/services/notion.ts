@@ -43,7 +43,7 @@ export async function createNotionEntry(data: ContactFormValues) {
         },
         Status: {
           status: {
-            name: "New!", // This will set the initial status
+            name: "New!", 
           },
         },
         "Created At": {

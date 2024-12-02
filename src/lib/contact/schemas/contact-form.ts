@@ -1,5 +1,28 @@
 import * as z from "zod";
 
+export const basicInformationSchema = z.object({
+  fullName: z.string().min(1,""),
+  email: z.string().email(""),
+});
+
+export type BasicInformationValues = z.infer<typeof basicInformationSchema>;
+
+export const projectTypeSchema = z.object({
+  projectTypes: z
+    .array(z.enum(["brand", "web", "motion", "product"]))
+    .min(1,"")
+    .max(4,""),
+});
+
+export type ProjectTypeValues = z.infer<typeof projectTypeSchema>;
+
+export const projectDetailsSchema = z.object({
+  message: z.string().min(10,"").max(200,""),
+  link: z.string().url("").optional(),
+});
+
+export type ProjectDetailsValues = z.infer<typeof projectDetailsSchema>;
+
 export const contactFormSchema = z.object({
   fullName: z
     .string()
