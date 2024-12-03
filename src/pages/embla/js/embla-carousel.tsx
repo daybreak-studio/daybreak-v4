@@ -17,6 +17,7 @@ import { cn } from "@/lib/utils";
 import { relative } from "path";
 import { motion, AnimatePresence, easeInOut } from "framer-motion";
 import { v4 as uuidv4 } from "uuid";
+import { ExpandIcon } from "lucide-react";
 
 const TWEEN_SCALE_FACTOR_BASE = 0.2;
 const TWEEN_OPACITY_FACTOR_BASE = 0.0;
@@ -250,7 +251,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
     tweenBlur,
   ]);
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   return (
     <React.Fragment>
@@ -299,7 +300,10 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
             layoutRoot
             onClick={() => setOpen(!open)}
             whileTap={{ scale: 0.95 }}
-            className="absolute bottom-0 transform cursor-pointer"
+            className={cn(
+              "absolute bottom-0 transform cursor-pointer",
+              // isMobile : ""
+            )}
           >
             <EmblaCarouselBio person={people[selectedIndex]} open={open} />
           </motion.div>
@@ -321,7 +325,7 @@ const EmblaCarouselBio: React.FC<EmblaCarouselBioProps> = (props) => {
     <motion.div
       layout
       layoutId="person-container"
-      className="flex w-[344px] cursor-pointer flex-col items-center justify-between gap-6 overflow-hidden bg-white/50 p-4 align-middle backdrop-blur-xl"
+      className="flex w-[344px] cursor-pointer flex-col items-center justify-between gap-6 overflow-hidden border border-black/5 bg-white/50 p-4 align-middle backdrop-blur-xl"
       style={{
         borderRadius: "16px",
       }}
@@ -352,26 +356,34 @@ const EmblaCarouselBio: React.FC<EmblaCarouselBioProps> = (props) => {
           </div>
         ) : (
           <div className="flex w-full flex-col text-[length:var(--Spacing-35,14px)] font-[450] not-italic leading-[var(--Spacing-6,24px)] text-[color(display-p3_0_0_0)] text-black">
-            <motion.div
-              key={person.name}
-              initial={{ filter: "blur(2px)", x: 6 }}
-              animate={{ filter: "blur(0px)", x: 0 }}
-              exit={{ filter: "blur(2px)" }}
-              layout="position"
-              className="text-black opacity-60"
-            >
-              {person.name}
-            </motion.div>
-            <motion.div
-              key={person.role}
-              initial={{ filter: "blur(2px)", x: 4 }}
-              animate={{ filter: "blur(0px)", x: 0 }}
-              exit={{ filter: "blur(2px)" }}
-              layout="position"
-              className="text-black opacity-40"
-            >
-              {person.role}
-            </motion.div>
+            <div className="flex flex-col gap-[2px]">
+              <motion.div
+                key={person.name}
+                initial={{ filter: "blur(2px)", x: 6 }}
+                animate={{ filter: "blur(0px)", x: 0 }}
+                exit={{ filter: "blur(2px)" }}
+                layout="position"
+                className="text-black opacity-60"
+              >
+                {person.name}
+              </motion.div>
+              <motion.div
+                key={person.role}
+                initial={{ filter: "blur(2px)", x: 4 }}
+                animate={{ filter: "blur(0px)", x: 0 }}
+                exit={{ filter: "blur(2px)" }}
+                layout="position"
+                className="text-black opacity-40"
+              >
+                {person.role}
+              </motion.div>
+            </div>
+            <ExpandIcon
+              className={cn(
+                "absolute bottom-0 right-0 transform",
+                open ? "rotate-180" : "",
+              )}
+            />
           </div>
         )}
       </AnimatePresence>
