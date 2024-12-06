@@ -224,19 +224,15 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 
     emblaApi
       .on("reInit", setTweenNodes)
-
       .on("reInit", setScaleTweenFactor)
       .on("reInit", setOpacityTweenFactor)
       .on("reInit", setBlurTweenFactor)
-
       .on("reInit", tweenScale)
       .on("reInit", tweenOpacity)
       .on("reInit", tweenBlur)
-
       .on("slideFocus", tweenScale)
       .on("slideFocus", tweenOpacity)
       .on("slideFocus", tweenBlur)
-
       .on("scroll", tweenScale)
       .on("scroll", tweenOpacity)
       .on("scroll", tweenBlur);
@@ -325,79 +321,91 @@ const EmblaCarouselBio: React.FC<EmblaCarouselBioProps> = (props) => {
     <motion.div
       layout
       layoutId="person-container"
-      className="flex w-[344px] cursor-pointer flex-col items-center justify-between gap-6 overflow-hidden border border-black/5 bg-white/50 p-4 align-middle backdrop-blur-xl"
+      className="flex w-[344px] cursor-pointer flex-col items-center justify-between gap-2 overflow-hidden border border-black/5 bg-white/50 p-4 align-middle backdrop-blur-xl"
       style={{
         borderRadius: "16px",
       }}
     >
       <AnimatePresence mode="popLayout">
         {open ? (
-          <div className="flex gap-2 text-[length:var(--Spacing-35,14px)] font-[450] not-italic leading-[var(--Spacing-6,24px)] text-[color(display-p3_0_0_0)] text-black">
-            <motion.div
-              key={person.name}
-              initial={{ filter: "blur(2px)", x: 6 }}
-              animate={{ filter: "blur(0px)", x: 0 }}
-              exit={{ filter: "blur(2px)" }}
-              layout="position"
-              className="text-black opacity-60"
-            >
-              {person.name}
-            </motion.div>
-            <motion.div
-              key={person.role}
-              initial={{ filter: "blur(2px)", x: 4 }}
-              animate={{ filter: "blur(0px)", x: 0 }}
-              exit={{ filter: "blur(2px)" }}
-              layout="position"
-              className="text-black opacity-40"
-            >
-              {person.role}
-            </motion.div>
-          </div>
-        ) : (
-          <div className="flex w-full flex-col text-[length:var(--Spacing-35,14px)] font-[450] not-italic leading-[var(--Spacing-6,24px)] text-[color(display-p3_0_0_0)] text-black">
-            <div className="flex flex-col gap-[2px]">
+          <motion.div
+            layoutId={person.name}
+            className="flex gap-2 text-[length:var(--Spacing-35,14px)] font-[450] not-italic leading-[var(--Spacing-6,24px)] text-[color(display-p3_0_0_0)] text-black"
+          >
+            <div className="flex gap-1">
               <motion.div
                 key={person.name}
-                initial={{ filter: "blur(2px)", x: 6 }}
-                animate={{ filter: "blur(0px)", x: 0 }}
+                initial={{ filter: "blur(2px)" }}
+                animate={{ filter: "blur(0px)" }}
                 exit={{ filter: "blur(2px)" }}
                 layout="position"
-                className="text-black opacity-60"
+                className="whitespace-nowrap text-black opacity-60"
               >
                 {person.name}
               </motion.div>
               <motion.div
                 key={person.role}
-                initial={{ filter: "blur(2px)", x: 4 }}
-                animate={{ filter: "blur(0px)", x: 0 }}
+                initial={{ filter: "blur(2px)" }}
+                animate={{ filter: "blur(0px)" }}
                 exit={{ filter: "blur(2px)" }}
                 layout="position"
-                className="text-black opacity-40"
+                className="whitespace-nowrap text-black opacity-40"
               >
                 {person.role}
               </motion.div>
             </div>
-            <ExpandIcon
-              className={cn(
-                "absolute bottom-0 right-0 transform",
-                open ? "rotate-180" : "",
-              )}
-            />
-          </div>
+          </motion.div>
+        ) : (
+          <motion.div
+            layoutId={person.name}
+            className="flex w-full items-center justify-between text-[length:var(--Spacing-35,14px)] font-[450] not-italic leading-[var(--Spacing-6,24px)] text-[color(display-p3_0_0_0)] text-black"
+          >
+            <div className="flex flex-col">
+              <motion.div
+                key={person.name}
+                initial={{ filter: "blur(2px)" }}
+                animate={{ filter: "blur(0px)" }}
+                exit={{ filter: "blur(2px)" }}
+                layout="position"
+                className="whitespace-nowrap text-black opacity-60"
+              >
+                {person.name}
+              </motion.div>
+              <motion.div
+                key={person.role}
+                initial={{ filter: "blur(2px)" }}
+                animate={{ filter: "blur(0px)" }}
+                exit={{ filter: "blur(2px)" }}
+                layout="position"
+                className="whitespace-nowrap text-black opacity-40"
+              >
+                {person.role}
+              </motion.div>
+            </div>
+            <motion.div
+              key={"state: " + open}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4, delay: 0.4 }}
+            >
+              <ExpandIcon className="mr-2 h-4 w-4 opacity-40" />
+            </motion.div>
+          </motion.div>
         )}
       </AnimatePresence>
       <AnimatePresence mode="popLayout">
         {open && (
           <motion.div
-            initial={{ opacity: 0, filter: "blur(8px)" }}
+            key={person.id}
+            initial={{ opacity: 0, filter: "blur(2px)" }}
             animate={{ opacity: 1, filter: "blur(0px)" }}
-            exit={{ opacity: 0, filter: "blur(8px)" }}
+            exit={{ opacity: 0, filter: "blur(2px)" }}
             transition={{ duration: 0.2 }}
-            className="flex flex-col gap-6"
+            className="flex flex-col gap-4"
             layout="position"
           >
-            <div className="px-8 text-center text-lg font-[450] not-italic leading-[var(--Spacing-7,28px)] text-[color(display-p3_0_0_0)] text-black opacity-50">
+            <div className="px-8 text-center text-base font-[450] not-italic leading-[var(--Spacing-7,28px)] text-[color(display-p3_0_0_0)] text-black opacity-50">
               {person.bio}
             </div>
             <div className="flex items-start gap-1 self-stretch">
@@ -438,7 +446,7 @@ const EmblaCarouselDots: React.FC<EmblaCarouselDotsProps> = (props) => {
           key={index}
           onClick={() => onDotButtonClick(index)}
           className={cn(
-            "h-1 w-1 rounded-full bg-[color(display-p3_0_0_0)] opacity-20",
+            "h-2 w-2 rounded-full bg-[color(display-p3_0_0_0)] opacity-20",
             "mr-2",
             index === selectedIndex && "scale-150 opacity-100",
           )}

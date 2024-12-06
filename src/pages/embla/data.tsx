@@ -21,7 +21,7 @@ export const people: Person[] = [
   {
     id: uuidv4(),
     name: "Ali",
-    role: "Founder",
+    role: "Developer",
     bio: "A mini headline/ bio of this person. Just enough to capture who they are.",
     video: "/team/ali.mp4",
     info: [
